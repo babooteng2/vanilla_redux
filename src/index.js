@@ -1,23 +1,14 @@
-const plus = document.getElementById("plus");
-const minus = document.getElementById("minus");
-const number = document.querySelector("span");
-const CLICK = "click";
-
+import { createStore } from "redux";
+//yarn add redux
+// create .env.local file and add in REACT_EDITOR=code
 let count = 0;
 
-const updateText = () => {
-  number.innerText = count;
+const reduceModifier = (state = 0) => {
+  return state;
 };
+const countStore = createStore(reduceModifier);
 
-const handleAdd = (e) => {
-  count++;
-  updateText();
-};
-
-const handleMinus = (e) => {
-  count--;
-  updateText();
-};
-
-plus.addEventListener(CLICK, handleAdd);
-minus.addEventListener(CLICK, handleMinus);
+/*
+  createStore는 reducer를 인자로 받고 reducer는 유일하게 state를 변경할 수 있는 유일한 함수
+  state를 변경할 땐 action을 통해 가능
+  */
