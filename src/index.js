@@ -1,8 +1,10 @@
 import { createStore } from "redux";
-//yarn add redux
-// create .env.local file and add in REACT_EDITOR=code
-let count = 0;
 
+const plus = document.getElementById("plus");
+const minus = document.getElementById("minus");
+const span = document.querySelector("#root span");
+span.innerText = 0;
+// reducer라고 불리는 곳에서는 데이터의 변화를 다루고
 const reduceModifier = (count = 0, action) => {
   console.log(count, action);
   if (action.type === "PLUS") {
@@ -12,17 +14,10 @@ const reduceModifier = (count = 0, action) => {
   }
   return count;
 };
+
+// subscribe라고 불리는 곳에서는 데이터변화가 감지되면 화면갱신을 연결한다.
 const countStore = createStore(reduceModifier);
-
-/*
-  createStore는 reducer를 인자로 받고 reducer는 유일하게 state를 변경할 수 있는 유일한 함수
-  state를 변경할 땐 action을 통해 가능
-  */
-
-countStore.dispatch({ type: "PLUS" });
-countStore.dispatch({ type: "PLUS" });
-countStore.dispatch({ type: "PLUS" });
-countStore.dispatch({ type: "PLUS" });
-countStore.dispatch({ type: "PLUS" });
-countStore.dispatch({ type: "MINUS" });
-console.log(countStore.getState());
+const onChange = () => (span.innerText = countStore.getState());
+countStore.subscribe(onChange);
+plus.addEventListener("click", () => countStore.dispatch({ type: "PLUS" }));
+minus.addEventListener("click", () => countStore.dispatch({ type: "MINUS" }));
