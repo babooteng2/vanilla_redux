@@ -8,9 +8,6 @@ const ul = toDoList.querySelector(".list");
 const ADD = "add";
 const DELETE = "delete";
 
-/* actions - onloy for dispatch (usally position onto reducer)
-  최대한 작은 단위로 쪼갬
-*/
 const addToDo = (text) => {
   const id = Date.now();
   return {
@@ -21,8 +18,6 @@ const addToDo = (text) => {
 };
 
 const deleteToDo = (id) => {
-  //const id = e.target.parentNode.id;
-  //store.dispatch({ type: DELETE, id });
   return {
     type: DELETE,
     id,
@@ -34,7 +29,7 @@ const reducer = (state = [], action) => {
     case ADD:
       return [{ text: action.text, id: action.id }, ...state];
     case DELETE:
-      return [{ id: action.id }, ...state];
+      return state.filter((toDo) => toDo.id !== action.id);
     default:
       return state;
   }
@@ -64,16 +59,11 @@ const dispactchAddToDo = (text) => {
 };
 
 const dispatchDeleteToDo = (e) => {
-  const id = e.target.parentNode.id;
+  const id = parseInt(e.target.parentNode.id);
   store.dispatch(deleteToDo(id));
 };
 
 store.subscribe(() => {
-  /*   console.log(store.getState());
-  const addList = document.createElement("li");
-  const { text } = store.getState();
-  addList.innerText = text;
-  ul.appendChild(addList); */
   paintToDos();
 });
 
@@ -83,8 +73,6 @@ const hd_submit = (e) => {
   if (inputTodo.value !== "") {
     const toDo = inputTodo.value;
     inputTodo.value = "";
-    //paint(toDo);
-    //store.dispatch({ type: ADD, text: toDo });
     dispactchAddToDo(toDo);
   }
 };
