@@ -8,6 +8,8 @@ const ul = toDoList.querySelector(".list");
 const ADD = "add";
 const DELETE = "delete";
 
+/*
+  action creator - 오직 object만 return  */
 const addToDo = (text) => {
   const id = Date.now();
   return {
@@ -27,9 +29,11 @@ const deleteToDo = (id) => {
 const reducer = (state = [], action) => {
   switch (action.type) {
     case ADD:
-      return [{ text: action.text, id: action.id }, ...state];
+      const newToDoObj = { text: action.text, id: action.id };
+      return [newToDoObj, ...state];
     case DELETE:
-      return state.filter((toDo) => toDo.id !== action.id);
+      const cleaned = state.filter((toDo) => toDo.id !== action.id);
+      return cleaned;
     default:
       return state;
   }
