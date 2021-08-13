@@ -23,12 +23,3 @@ function Home() {
 }
 
 export default Home;
-
-/* 
-    1. yarn add react-redux react-router-dom
-    2. routes폴더 Home export default () => "Home";
-       routes폴더 Detail export default () => "Detail";
-       한 줄로 라우터가 잘 동작하는지 확인용
-    3. components 폴더 App.js 작성 (라우터 구성)
-    4. Hook 작성    
-*/
