@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
+import { actionCreators } from "../store";
 
-function Home({ toDos }) {
+function Home({ toDos, addToDo }) {
   const [text, setText] = useState("");
   function onChange(e) {
     setText(e.target.value);
@@ -9,6 +10,7 @@ function Home({ toDos }) {
   function onSubmit(e) {
     e.preventDefault();
     console.log(text);
+    addToDo(text);
     setText("");
   }
   return (
@@ -23,19 +25,16 @@ function Home({ toDos }) {
   );
 }
 
-// https://react-redux.js.org/using-react-redux/connect-mapstate
-/* 
-  1. state - redux store에서 온 state
-  2. ownProps - router에서 온 prop 
-    - 이 ownProps는 export default connect(getCurrentStaet)(Home);
-      이 라인에서 Home에 intercept하여 prop을 추가시켜 줌
-    - 결론: react router에서 준 props 말고도 ( but also ) ownProps를 추가시켜 줌
-*/
-/* function mapStateToProps(state, ownProps) {
-  return { state, sexy: true };  
-} */
 function mapStateToProps(state) {
   return { toDos: state };
 }
 
-export default connect(mapStateToProps)(Home);
+function mapDispatchToProps(dispatch) {
+  return {
+    addToDo: (text) => dispatch(actionCreators.addToDo(text)),
+  };
+}
+
+//export default connect(mapStateToProps)(Home);
+//export default connect(null, mapDispatchToProps)(Home);
+export default connect(mapStateToProps, mapDispatchToProps)(Home);

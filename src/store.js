@@ -4,7 +4,7 @@ const ADD = "add";
 const DELETE = "delete";
 
 /* Action Creator */
-export const addToDo = (text) => {
+const addToDo = (text) => {
   return {
     type: ADD,
     text,
@@ -12,7 +12,7 @@ export const addToDo = (text) => {
   };
 };
 
-export const deleteToDo = (id) => {
+const deleteToDo = (id) => {
   return {
     type: DELETE,
     id,
@@ -35,9 +35,9 @@ const reducer = (state = [], action) => {
 
 const store = createStore(reducer);
 
-/* 
-    index.js의 Provider (react-redux에서 구독)
-    store.subscribe();
- */
+export const actionCreators = {
+  addToDo,
+  deleteToDo,
+};
 
 export default store;
