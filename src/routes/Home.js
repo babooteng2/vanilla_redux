@@ -31,10 +31,12 @@ function Home({ toDos, addToDo }) {
 }
 
 function mapStateToProps(state) {
+  // getState
   return { toDos: state };
 }
 
 function mapDispatchToProps(dispatch) {
+  // dispatch
   return {
     addToDo: (text) => dispatch(actionCreators.addToDo(text)),
   };
