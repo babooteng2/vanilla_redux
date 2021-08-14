@@ -1,5 +1,5 @@
-import { createStore } from "redux";
-import { createAction, createReducer } from "@reduxjs/toolkit";
+//import { createStore } from "redux";
+import { configureStore, createAction, createReducer } from "@reduxjs/toolkit";
 
 /* Action Creator */
 
@@ -31,7 +31,12 @@ const reducer = createReducer([], {
     state.filter((toDo) => toDo.id !== action.payload),
 });
 
-const store = createStore(reducer);
+//const store = createStore(reducer);
+/* 
+  인자로 object를 받아야하고
+  configureStore를 사용하면 , chrome extension인 redux devtools에서 state를 확인 할 수 있다. 
+  */
+const store = configureStore({ reducer });
 
 export const actionCreators = {
   addToDo,
